@@ -9,9 +9,7 @@ def load_gsm8k(
     config: str = "main",
     max_samples: Optional[int] = None,
 ) -> List[Tuple[str, str]]:
-    """
-    GSM-8K Q/A + Chain-of-Thought 프롬프트
-    """
+
     ds = hf_load_dataset("openai/gsm8k", config, split=split)
     if max_samples:
         ds = ds.select(range(max_samples))
@@ -29,9 +27,7 @@ def load_cnn_dm(
     version: str = "3.0.0",
     max_samples: Optional[int] = None,
 ) -> List[Tuple[str, str]]:
-    """
-    CNN/DailyMail 2–4 문장 요약
-    """
+
     ds = hf_load_dataset("cnn_dailymail", version, split=split)
     if max_samples:
         ds = ds.select(range(max_samples))
@@ -48,9 +44,7 @@ def load_wmt16(
     config: str = "ro-en",
     max_samples: Optional[int] = None,
 ) -> List[Tuple[str, str]]:
-    """
-    WMT-16(ro-en) 영어 → 루마니아어 번역
-    """
+
     ds = hf_load_dataset("wmt16", config, split=split)
     if max_samples:
         ds = ds.select(range(max_samples))
@@ -74,7 +68,7 @@ def load_human_eval(
     if max_samples:
         ds = ds.select(range(max_samples))
 
-    # 그대로 반환 (별도 템플릿 불필요)
+
     return [
         (ex["prompt"].strip(), ex["canonical_solution"].strip())
         for ex in ds
@@ -85,9 +79,7 @@ def load_xsum(
     version: str = "1.2.0",
     max_samples: Optional[int] = None,
 ) -> List[Tuple[str, str]]:
-    """
-    XSum 한 문장 헤드라인 요약
-    """
+
     ds = hf_load_dataset("xsum", version, split=split)
     if max_samples:
         ds = ds.select(range(max_samples))
@@ -104,10 +96,7 @@ def _attach_fewshot(
     seed: int = 42,
     delimiter: str = "\n\n",
 ) -> List[Tuple[str, str]]:
-    """
-    같은 split 안에서 k개 예시를 골라 각 프롬프트 앞에 붙인다.
-    (자기 자신은 제외)
-    """
+
     if k <= 0 or len(data) <= 1:
         return data
 
@@ -137,10 +126,7 @@ def _attach_fewshot(
 
 
 def load_dataset(args) -> Tuple[List[Tuple[str, str]], int]:
-    """
-    args.dataset 에 맞는 로더 호출 + (선택) few-shot 예시 부착
-    반환 → (data_list, max_length)
-    """
+
     mapping = {
         "gsm8k": (load_gsm8k, 256),
         "cnn_dm": (load_cnn_dm, 128),
