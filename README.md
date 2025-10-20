@@ -1,6 +1,5 @@
-<img width="1222" height="81" alt="제목 없음" src="https://github.com/user-attachments/assets/dc9c2f9f-64e9-43ad-bb1b-2ae3b90e9c40" />
 # FractalLLM
-
+<img width="1222" height="81" alt="제목 없음" src="https://github.com/user-attachments/assets/dc9c2f9f-64e9-43ad-bb1b-2ae3b90e9c40" />
 **Lossless Self-Speculative Decoding with Layer-Embedded Self-Compression**
 
 ---
